@@ -1,0 +1,49 @@
+# Supfile
+---
+version: 0.4
+
+networks:
+  pi:
+    hosts:
+      - pi@raspberrypi.local
+
+commands:
+  info:
+    desc: Print misc. info
+    run: uname -a; date; whoami; pwd
+
+  init:
+    desc: Initialize dir
+    run: mkdir -p ~/ica-tuna
+
+  build:
+    desc: Compile binary locally
+    local: GOOS=linux GOARCH=arm go build .
+
+  stop:
+    desc: Stop service
+    run: sudo systemctl stop icatuna
+
+  start:
+    desc: start service
+    run: chmod +x /home/pi/go/bin/ica-tuna && sudo systemctl start icatuna
+
+  files:
+    desc: Upload all files
+    upload:
+      - src: ./static
+        dst: /home/pi/ica-tuna/
+      - src: ./ica-tuna
+        dst: /home/pi/go/bin/
+
+  cleardb:
+    desc: Reset database
+    run: echo "" > ~/ica-tuna/pricedb.tsv
+
+targets:
+  update:
+    - build
+    - init
+    - stop
+    - files
+    - start

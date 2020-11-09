@@ -1,5 +1,13 @@
 (function (app) {
 
+	function unescapeEntities(txt) {
+		return txt.replace(/&#246;/g, "ö")
+				  .replace(/&#229;/g, "å")
+				  .replace(/&#228;/g, "ä")
+				  .replace(/&#197;/g, "Å")
+				  .replace(/&#39;/g, "'")
+	}
+
 	function parse_offer(offer) {
 		var name  = "??"
 		var info  = "??"
@@ -50,10 +58,10 @@
 		}
 
 		return {
-			name:  name,
-			price: price,
-			info:  info,
-			amount: amount,
+			name:  unescapeEntities(name),
+			price: unescapeEntities(price).replace(/:-/, ''),
+			info:  unescapeEntities(info),
+			amount: unescapeEntities(amount),
 			img:   img
 		}
 	}
@@ -85,12 +93,9 @@
 			})
 		}
 
-		console.log(ranges)
-
 		var sections = ranges.map(range => news.substring(range.start, range.end))
 		var offers = sections.map(parse_offer)
 		window.app.present(offers)
-
-		//document.body.innerHTML = news
+		window.app.analyse(offers)
 	}
 })((window.app = window.app || {}));

@@ -4,25 +4,29 @@
 	<title>ica tuna</title>
 	<style type="text/css">
 		.offer { margin: 1rem; padding: 0.5rem;}
-		.name  { font-size: 1rem; }
-		.price { font-weight: 600; }
+		.name  { font-size: 1rem; word-break: break-all; }
+		.price { font-weight: 600; margin-left: auto; }
 
 		body {
 			display: flex;
 			flex-wrap: wrap;
 		}
-		.price, .amount { display: inline-block; }
+		.price, .amount, .deal { display: inline-block; }
 
 		.offer {
 			border: 1px solid black;
 			word-wrap: break-word;
-
 		}
 
 		.offer > img {
 			width:  150px;
 			height: 150px;
 		}
+
+		.info { max-width: 15rem; }
+		.deal { float: right; background-color: #bbb; border-radius: 4px; padding: 0.25rem; }
+		.deal:hover { cursor: pointer; }
+		.record { background-color: #5f5; }
 
 
 	</style>
@@ -31,5 +35,6 @@
 	<script type="text/javascript" src="loader.js"></script>
 	<script type="text/javascript" src="parser.js"></script>
 	<script type="text/javascript" src="presenter.js"></script>
+	<script type="text/javascript" src="isthereanydeal.js"></script>
 </body>
 </html>
